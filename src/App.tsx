@@ -17,6 +17,8 @@ function App() {
     {id: v1(), title: "CSS", isDone: true}
   ])
 
+
+
   const [filter, setFilter] = useState<FilterValuesType>("all")
   let tasksForTodolist = tasks
   if (filter==="active"){
@@ -47,6 +49,7 @@ function App() {
           removeTask={removeTask}
           addTask={addTask}
           changeTaskStatus={changeTaskStatus}
+          filter={filter}
       />
   );
 }
