@@ -9,48 +9,87 @@ export type TasksType = {
   title: string
   isDone: boolean
 }
+type TodolistType = {
+  id: string,
+  title: string,
+  filter: FilterValuesType
+}
+type TasksStateType = {
+  [key:string]:TasksType[]
+}
 function App() {
-  const [tasks, setTasks] = useState<TasksType[]>([
-    {id: v1(), title: "React", isDone: true},
-    {id: v1(), title: "HTML", isDone: false},
-    {id: v1(), title: "View", isDone: false},
-    {id: v1(), title: "CSS", isDone: true}
+  // const [tasks, setTasks] = useState<TasksType[]>([
+  //   {id: v1(), title: "React", isDone: true},
+  //   {id: v1(), title: "HTML", isDone: false},
+  //   {id: v1(), title: "View", isDone: false},
+  //   {id: v1(), title: "CSS", isDone: true}
+  // ])
+  let todolistID1 = v1()
+  let todolistID2 = v1()
+
+  let [todolists, setTodolists] = useState<TodolistType[]>([
+    { id: todolistID1, title: 'What to learn', filter: 'all' },
+    { id: todolistID2, title: 'What to buy', filter: 'all' },
   ])
 
+  let [tasks, setTasks] = useState<TasksStateType>({
+    [todolistID1]: [
+      { id: v1(), title: 'HTML&CSS', isDone: true },
+      { id: v1(), title: 'JS', isDone: true },
+      { id: v1(), title: 'ReactJS', isDone: false },
+    ],
+    [todolistID2]: [
+      { id: v1(), title: 'Rest API', isDone: true },
+      { id: v1(), title: 'GraphQL', isDone: false },
+    ],
+  })
 
 
-  const [filter, setFilter] = useState<FilterValuesType>("all")
-  let tasksForTodolist = tasks
-  if (filter==="active"){
-    tasksForTodolist = tasks.filter(t=> !t.isDone)
-  }
-  if (filter==="completed"){
-    tasksForTodolist = tasks.filter(t=> t.isDone)
-  }
 
-  function changeTasksStatus(value: FilterValuesType) {
-    setFilter(value)
+  function changeFilter(todolistId: string,value: FilterValuesType) {
+    setTodolists(todolists.map(tl=> tl.id ===todolistId ? {...tl,filter:value}: tl))
   }
-  function removeTask(taskId: string) {
-    setTasks(tasks.filter(t=> t.id !== taskId))
+  function removeTask(todolistId: string,taskId: string) {
+    setTasks({...tasks,[todolistId]:tasks[todolistId].filter(t=> t.id !==taskId)})
   }
-  function addTask (value: string) {
+  function addTask (todolistId: string,value: string) {
     let newTask = {id: v1(), title: value, isDone: false}
-    setTasks([newTask, ...tasks])
+    setTasks({...tasks,[todolistId]: [newTask,...tasks[todolistId]]})
   }
-  function changeTaskStatus(taskId: string, taskStatus: boolean) {
-    setTasks(tasks.map(t=> t.id===taskId ? {...t, isDone:taskStatus} : t))
+  function changeTaskStatus(todolistId: string,taskId: string, taskStatus: boolean) {
+    setTasks({...tasks,[todolistId]: tasks[todolistId].map(t=> t.id===taskId ? {...t, isDone:taskStatus} : t)})
+  }
+  function removeTodolist(todolistId: string) {
+    setTodolists(todolists.filter(t=> t.id !== todolistId))
+    delete tasks[todolistId]
+    setTasks({ ...tasks })
   }
   return (
-      <Todolist
-          tasks={tasksForTodolist}
-          title={"What to learn"}
-          changeTasksStatus={changeTasksStatus}
-          removeTask={removeTask}
-          addTask={addTask}
-          changeTaskStatus={changeTaskStatus}
-          filter={filter}
-      />
+      <div className={"App"}>
+        {todolists.map((tl)=>{
+          let tasksForTodolist = tasks[tl.id]
+          if (tl.filter==="active"){
+            tasksForTodolist = tasks[tl.id].filter(t=> !t.isDone)
+          }
+          if (tl.filter==="completed"){
+            tasksForTodolist = tasks[tl.id].filter(t=> t.isDone)
+          }
+          return (
+              <Todolist
+                  key={tl.id}
+                  todolistId={tl.id}
+                  tasks={tasksForTodolist}
+                  title={tl.title}
+                  changeFilter={changeFilter}
+                  removeTask={removeTask}
+                  addTask={addTask}
+                  changeTaskStatus={changeTaskStatus}
+                  filter={tl.filter}
+                  removeTodolist={removeTodolist}
+              />
+          )
+        })}
+      </div>
   );
 }
 
