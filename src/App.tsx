@@ -39,9 +39,6 @@ function App() {
       { id: v1(), title: 'GraphQL', isDone: false },
     ],
   })
-
-
-
   function changeFilter(todolistId: string,value: FilterValuesType) {
     setTodolists(todolists.map(tl=> tl.id ===todolistId ? {...tl,filter:value}: tl))
   }
@@ -61,13 +58,18 @@ function App() {
     setTodolists(todolists.filter(t=> t.id !== todolistId))
     delete tasks[todolistId]
     setTasks({ ...tasks })
-
   }
   function addTodolist(newTitle: string) {
     const newID = v1()
     const newTodolist:TodolistType ={id: newID, title: newTitle, filter: 'all'}
     setTodolists([newTodolist, ...todolists])
     setTasks({...tasks,[newID]:[]})
+  }
+  const updateTask = (todolistId: string, taskID: string, newTitle: string) => {
+    setTasks({...tasks,[todolistId]:tasks[todolistId].map(t=> t.id===taskID ? {...t,title:newTitle}: t)})
+  }
+  const updateTodolist = (todolistId: string, newTitle: string) => {
+    setTodolists(todolists.map(el=> el.id===todolistId ? {...el, title: newTitle} :el))
   }
   return (
       
@@ -93,6 +95,8 @@ function App() {
                   changeTaskStatus={changeTaskStatus}
                   filter={tl.filter}
                   removeTodolist={removeTodolist}
+                  updateTask={updateTask}
+                  updateTodolist={updateTodolist}
               />
           )
         })}
