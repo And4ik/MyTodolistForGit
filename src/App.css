@@ -1,34 +1,34 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
 
-.error {
-  border: red 1px solid;
-}
-.error-message {
-  color: red;
-}
-.active-filter {
-  background-color: #61e3b7;
-}
-.is-done {
-  opacity: 0.5;
-}
-.error {
-  border: red 1px solid;
-}
+/*.error {*/
+/*  border: red 1px solid;*/
+/*}*/
+/*.error-message {*/
+/*  color: red;*/
+/*}*/
+/*.active-filter {*/
+/*  background-color: #61e3b7;*/
+/*}*/
+/*.is-done {*/
+/*  opacity: 0.5;*/
+/*}*/
+/*.error {*/
+/*  border: red 1px solid;*/
+/*}*/
 
-.error-message {
-  color: red;
-}
-.active-filter {
-  background-color: lightgreen;
-}
-.is-done {
-  opacity: 0.5;
-}
+/*.error-message {*/
+/*  color: red;*/
+/*}*/
+/*.active-filter {*/
+/*  background-color: lightgreen;*/
+/*}*/
+/*.is-done {*/
+/*  opacity: 0.5;*/
+/*}*/

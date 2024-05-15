@@ -3,6 +3,7 @@ import * as React from 'react';
 // import {Button} from "./Button";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 type AddItemFormType = {
     onClick: (newTitle: string) => void
@@ -30,24 +31,34 @@ export const AddItemForm = (props: AddItemFormType) => {
     }
 
     const buttonStyle = {
-        maxWidth: "30px",
-        maxHeight:"30px",
-        minWidth:"30px",
-        minHeight:"30px",
+        maxWidth: "40px",
+        maxHeight:"40px",
+        minWidth:"40px",
+        minHeight:"40px",
         }
 
     return (
             <div>
-                <input
-                    className={error ? "error" : ""}
-                    type="text"
+                <TextField
+                    error={!!error} // !! для того чтобы превратить в булеан
+                    id="outlined-basic"
+                    label={error ? error : "Type something"}
+                    variant="outlined"
+                    size="small"
                     value={title}
                     onChange={onchangeHandler}
                     onKeyUp={onKeyUpHandler}
                 />
+                {/*<input*/}
+                {/*    className={error ? "error" : ""}*/}
+                {/*    type="text"*/}
+                {/*    value={title}*/}
+                {/*    onChange={onchangeHandler}*/}
+                {/*    onKeyUp={onKeyUpHandler}*/}
+                {/*/>*/}
+
                 {/*<Button onClick={addTaskHandler} title={"x"}/>*/}
                 <Button style={buttonStyle} variant="contained" onClick={addTaskHandler}>+</Button>
-                {error && <div className={'error-message'}>{error}</div>}
             </div>
     );
 };
