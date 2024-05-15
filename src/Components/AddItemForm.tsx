@@ -1,7 +1,8 @@
 
 import * as React from 'react';
-import {Button} from "./Button";
+// import {Button} from "./Button";
 import {ChangeEvent, KeyboardEvent, useState} from "react";
+import Button from '@mui/material/Button';
 
 type AddItemFormType = {
     onClick: (newTitle: string) => void
@@ -27,6 +28,14 @@ export const AddItemForm = (props: AddItemFormType) => {
             addTaskHandler()
         }
     }
+
+    const buttonStyle = {
+        maxWidth: "30px",
+        maxHeight:"30px",
+        minWidth:"30px",
+        minHeight:"30px",
+        }
+
     return (
             <div>
                 <input
@@ -36,7 +45,8 @@ export const AddItemForm = (props: AddItemFormType) => {
                     onChange={onchangeHandler}
                     onKeyUp={onKeyUpHandler}
                 />
-                <Button onClick={addTaskHandler} title={"x"}/>
+                {/*<Button onClick={addTaskHandler} title={"x"}/>*/}
+                <Button style={buttonStyle} variant="contained" onClick={addTaskHandler}>+</Button>
                 {error && <div className={'error-message'}>{error}</div>}
             </div>
     );

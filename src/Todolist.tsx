@@ -1,10 +1,13 @@
 // @flow
 import * as React from 'react';
 import {FilterValuesType, TasksType} from "./App";
-import {Button} from "./Components/Button";
-import {ChangeEvent, KeyboardEvent, useState} from "react";
+// import {Button} from "./Components/Button";
+import {ChangeEvent} from "react";
 import {AddItemForm} from "./Components/AddItemForm";
 import {EditableSpan} from "./Components/EditableSpan";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
 
 
 type Props = {
@@ -33,12 +36,21 @@ export const Todolist = (props: Props) => {
     const updateTaskHandler = (taskId: string,newTitle: string) => {
         props.updateTask(props.todolistId, taskId,newTitle,)
     }
+    const buttonStyle = {
+        maxWidth: "30px",
+        maxHeight:"30px",
+        minWidth:"30px",
+        minHeight:"30px",
+    }
     return (
         <div>
             <h3>
                 <EditableSpan oldTitle={props.title} onClick={updateTodolistHandler}/>
                 {/*{props.title}*/}
-                <Button onClick={removeTodolistHandler} title={"x"}/>
+                {/*<Button onClick={removeTodolistHandler} title={"x"}/>*/}
+                <IconButton onClick={removeTodolistHandler} aria-label="delete" size="small">
+                    <DeleteIcon fontSize="small" />
+                </IconButton>
             </h3>
             <AddItemForm  onClick={addTaskHandler}/>
             <ul>
@@ -60,20 +72,29 @@ export const Todolist = (props: Props) => {
                                 checked={t.isDone}
                                 onChange={changeTaskStatusHandler}
                             />
-                            <Button onClick={removeTaskHandler} title={"x"}/>
+                            {/*<Button onClick={removeTaskHandler} title={"x"}/>*/}
+                            <IconButton aria-label="delete" size="small" onClick={removeTaskHandler}>
+                                <DeleteIcon fontSize="small" />
+                            </IconButton>
                         </li>
                     )
                 })}
             </ul>
-            <Button className={props.filter === "all" ? "active-filter" : ""} onClick={() => {
-                props.changeFilter(props.todolistId, "all")
-            }} title={"All"}/>
-            <Button className={props.filter === "active" ? "active-filter" : ""} onClick={() => {
-                props.changeFilter(props.todolistId, "active")
-            }} title={"Active"}/>
-            <Button className={props.filter === "completed" ? "active-filter" : ""} onClick={() => {
-                props.changeFilter(props.todolistId, "completed")
-            }} title={"Completed"}/>
+            <Button onClick={() => {props.changeFilter(props.todolistId, "all")}}
+                    variant={props.filter === "all" ? "outlined" : "contained"} color="error">All</Button>
+            <Button onClick={() => {props.changeFilter(props.todolistId, "active")}}
+                    variant={props.filter === "active" ? "outlined" : "contained"} color="primary">Active</Button>
+            <Button onClick={() => {props.changeFilter(props.todolistId, "completed")}}
+                    variant={props.filter === "completed" ? "outlined" : "contained"} color="secondary">Completed</Button>
+            {/*<Button className={props.filter === "all" ? "active-filter" : ""} onClick={() => {*/}
+            {/*    props.changeFilter(props.todolistId, "all")*/}
+            {/*}} title={"All"}/>*/}
+            {/*<Button className={props.filter === "active" ? "active-filter" : ""} onClick={() => {*/}
+            {/*    props.changeFilter(props.todolistId, "active")*/}
+            {/*}} title={"Active"}/>*/}
+            {/*<Button className={props.filter === "completed" ? "active-filter" : ""} onClick={() => {*/}
+            {/*    props.changeFilter(props.todolistId, "completed")*/}
+            {/*}} title={"Completed"}/>*/}
 
         </div>
     );
