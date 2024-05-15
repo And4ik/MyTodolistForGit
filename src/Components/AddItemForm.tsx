@@ -58,7 +58,7 @@ export const AddItemForm = (props: AddItemFormType) => {
                 {/*/>*/}
 
                 {/*<Button onClick={addTaskHandler} title={"x"}/>*/}
-                <Button style={buttonStyle} variant="contained" onClick={addTaskHandler}>+</Button>
+                <Button sx={buttonStyle} variant="contained" onClick={addTaskHandler}>+</Button>
             </div>
     );
 };

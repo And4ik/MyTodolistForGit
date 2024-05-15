@@ -87,7 +87,7 @@ function App() {
             <ButtonAppBar/>
 
             <Container fixed>
-                <Grid container style={{padding: "15px"}}>
+                <Grid container sx={{padding: "15px"}}>
                     <AddItemForm onClick={addTodolist}/>
                 </Grid>
                 <Grid container spacing={4}>
@@ -101,7 +101,7 @@ function App() {
                                 tasksForTodolist = tasks[tl.id].filter(t => t.isDone)
                             }
                             return <Grid item>
-                                <Paper elevation={3} style={{padding: "15px"}}>
+                                <Paper elevation={3} sx={{padding: "15px"}}>
                                 <Todolist
                                     key={tl.id}
                                     todolistId={tl.id}
