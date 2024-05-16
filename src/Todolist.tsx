@@ -8,6 +8,11 @@ import {EditableSpan} from "./Components/EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Box from '@mui/material/Box';
+import {filterButtonsContainerSx, getListItemSx} from "./Todolist.styles";
 
 
 type Props = {
@@ -46,14 +51,13 @@ export const Todolist = (props: Props) => {
         <div>
             <h3>
                 <EditableSpan oldTitle={props.title} onClick={updateTodolistHandler}/>
-                {/*{props.title}*/}
                 {/*<Button onClick={removeTodolistHandler} title={"x"}/>*/}
                 <IconButton onClick={removeTodolistHandler} aria-label="delete" size="small">
                     <DeleteIcon fontSize="small" />
                 </IconButton>
             </h3>
             <AddItemForm  onClick={addTaskHandler}/>
-            <ul>
+            <List>
                 {props.tasks.map(t => {
                     const removeTaskHandler = () => {
                         props.removeTask(props.todolistId, t.id)
@@ -64,28 +68,29 @@ export const Todolist = (props: Props) => {
                     }
 
                     return (
-                        <li key={t.id} className={t.isDone ? 'is-done' : ''}>
-                            {/*<span>{t.title}</span>*/}
-                            <EditableSpan oldTitle={t.title} onClick={(newTitle:string)=>updateTaskHandler(t.id,newTitle)}/>
-                            <input
-                                type="checkbox"
-                                checked={t.isDone}
-                                onChange={changeTaskStatusHandler}
-                            />
+                        <ListItem key={t.id}
+                            sx={getListItemSx(t.isDone)}>
+                            <div>
+                                <EditableSpan oldTitle={t.title} onClick={(newTitle: string) => updateTaskHandler(t.id, newTitle)}/>
+                                <Checkbox checked={t.isDone} onChange={changeTaskStatusHandler}/>
+                            </div>
                             {/*<Button onClick={removeTaskHandler} title={"x"}/>*/}
                             <IconButton aria-label="delete" size="small" onClick={removeTaskHandler}>
                                 <DeleteIcon fontSize="small" />
                             </IconButton>
-                        </li>
+                        </ListItem>
+
                     )
                 })}
-            </ul>
-            <Button onClick={() => {props.changeFilter(props.todolistId, "all")}}
-                    variant={props.filter === "all" ? "outlined" : "contained"} color="error">All</Button>
-            <Button onClick={() => {props.changeFilter(props.todolistId, "active")}}
-                    variant={props.filter === "active" ? "outlined" : "contained"} color="primary">Active</Button>
-            <Button onClick={() => {props.changeFilter(props.todolistId, "completed")}}
-                    variant={props.filter === "completed" ? "outlined" : "contained"} color="secondary">Completed</Button>
+            </List>
+            <Box sx={filterButtonsContainerSx}>
+                <Button onClick={() => {props.changeFilter(props.todolistId, "all")}}
+                       variant={props.filter === "all" ? "outlined" : "contained"} color="error">All</Button>
+                <Button onClick={() => {props.changeFilter(props.todolistId, "active")}}
+                        variant={props.filter === "active" ? "outlined" : "contained"} color="primary">Active</Button>
+                <Button onClick={() => {props.changeFilter(props.todolistId, "completed")}}
+                        variant={props.filter === "completed" ? "outlined" : "contained"} color="secondary">Completed</Button>
+            </Box>
             {/*<Button className={props.filter === "all" ? "active-filter" : ""} onClick={() => {*/}
             {/*    props.changeFilter(props.todolistId, "all")*/}
             {/*}} title={"All"}/>*/}

@@ -4,6 +4,11 @@ import * as React from 'react';
 import {ChangeEvent, KeyboardEvent, useState} from "react";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import {filterButtonsContainerSx} from "../Todolist.styles";
+import IconButton from "@mui/material/IconButton";
+
+import {ControlPoint} from "@mui/icons-material";
 
 type AddItemFormType = {
     onClick: (newTitle: string) => void
@@ -38,11 +43,11 @@ export const AddItemForm = (props: AddItemFormType) => {
         }
 
     return (
-            <div>
+            <Box sx={filterButtonsContainerSx}>
                 <TextField
                     error={!!error} // !! для того чтобы превратить в булеан
                     id="outlined-basic"
-                    label={error ? error : "Type something"}
+                    label={error ? error : "Enter a title"}
                     variant="outlined"
                     size="small"
                     value={title}
@@ -58,7 +63,9 @@ export const AddItemForm = (props: AddItemFormType) => {
                 {/*/>*/}
 
                 {/*<Button onClick={addTaskHandler} title={"x"}/>*/}
-                <Button sx={buttonStyle} variant="contained" onClick={addTaskHandler}>+</Button>
-            </div>
+                <IconButton onClick={addTaskHandler}  color={"primary"}>
+                    <ControlPoint/>
+                </IconButton>
+            </Box>
     );
 };
