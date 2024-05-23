@@ -8,14 +8,15 @@ import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
 import {AppBarHeader} from "./Components/AppBarHeader";
 
-
 export type FilterValuesType = "all" | "active" | "completed"
+
 export type TasksType = {
     id: string
     title: string
     isDone: boolean
 }
-type TodolistType = {
+
+export type TodolistType = {
     id: string,
     title: string,
     filter: FilterValuesType
@@ -45,32 +46,26 @@ function App() {
             {id: v1(), title: 'GraphQL', isDone: false},
         ],
     })
-
-    function changeFilter(todolistId: string, value: FilterValuesType) {
-        setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, filter: value} : tl))
+    function changeFilter(todolistId: string, filter: FilterValuesType) {
+        setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, filter: filter} : tl))
     }
-
     function removeTask(todolistId: string, taskId: string) {
         setTasks({...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== taskId)})
     }
-
     function addTask(todolistId: string, value: string) {
         let newTask = {id: v1(), title: value, isDone: false}
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
 
     }
-
     function changeTaskStatus(todolistId: string, taskId: string, taskStatus: boolean) {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone: taskStatus} : t)})
 
     }
-
     function removeTodolist(todolistId: string) {
         setTodolists(todolists.filter(t => t.id !== todolistId))
         delete tasks[todolistId]
         setTasks({...tasks})
     }
-
     function addTodolist(newTitle: string) {
         const newID = v1()
         const newTodolist: TodolistType = {id: newID, title: newTitle, filter: 'all'}
@@ -93,7 +88,7 @@ function App() {
         palette: {
             mode: themeMode === "light" ? "light": "dark",
             primary: {
-                main: '#a2daea',
+                main: '#24be1d',
                 contrastText: 'white',
             },
             secondary: {
@@ -104,7 +99,6 @@ function App() {
             },
         },
     })
-
     return (
         <div>
             <ThemeProvider theme={theme}>
@@ -151,5 +145,4 @@ function App() {
         </div>
     );
 }
-
 export default App;
