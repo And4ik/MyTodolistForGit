@@ -65,7 +65,7 @@ function AppWithRedux() {
     function addTask(todolistId: string, value: string) {
         // let newTask = {id: v1(), title: value, isDone: false}
         // setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
-        dispatchToTasks(AddTaskAC(todolistId, value))
+        dispatchToTasks(AddTaskAC(value,todolistId ))
     }
     function changeTaskStatus(todolistId: string, taskId: string, taskStatus: boolean) {
         // setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone: taskStatus} : t)})
@@ -137,7 +137,7 @@ function AppWithRedux() {
                             if (tl.filter === "completed") {
                                 tasksForTodolist = tasks[tl.id].filter(t => t.isDone)
                             }
-                            return <Grid item>
+                            return <Grid key={tl.id} item>
                                 <Paper elevation={6} sx={{padding: "15px"}}>
                                     <Todolist
                                         key={tl.id}
