@@ -33,7 +33,7 @@ export type TasksStateType = {
     [key: string]: TasksType[]
 }
 
-function AppWithRedusers() {
+export function AppWithRedusers () {
 
     let todolistID1 = v1()
     let todolistID2 = v1()
@@ -89,16 +89,16 @@ function AppWithRedusers() {
         dispatchToTasks(action)
     }
 
-    const updateTask = (todolistId: string, taskID: string, newTitle: string) => {
+    const changeTaskTitle = (todolistId: string, taskID: string, newTitle: string) => {
         // setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskID ? {...t, title: newTitle} : t)})
         dispatchToTasks(ChangeTaskTitleAC(todolistId, taskID, newTitle))
     }
-    const updateTodolist = (todolistId: string, newTitle: string) => {
+    const changeTodolistTitle = (todolistId: string, newTitle: string) => {
         // setTodolists(todolists.map(el => el.id === todolistId ? {...el, title: newTitle} : el))
         dispatchToTodolists(UpdateTodolistAC(todolistId,newTitle))
     }
-    type ThemeMode = "dark" | "light"
-    const [themeMode, setThemeMode] = useState<ThemeMode>("light")
+    type ThemeModee = "dark" | "light"
+    const [themeMode, setThemeMode] = useState<ThemeModee>("light")
     const changeModeHandler = ()=> {
         setThemeMode(themeMode === "light" ? "dark": "light")
     }
@@ -148,10 +148,10 @@ function AppWithRedusers() {
                                         removeTask={removeTask}
                                         addTask={addTask}
                                         changeTaskStatus={changeTaskStatus}
-                                        filter={tl.filter}
                                         removeTodolist={removeTodolist}
-                                        updateTask={updateTask}
-                                        updateTodolist={updateTodolist}
+                                        changeTodolistTitle={changeTodolistTitle}
+                                        filter={tl.filter}
+                                        changeTaskTitle={changeTaskTitle}
                                     />
                                 </Paper>
                             </Grid>
@@ -163,4 +163,4 @@ function AppWithRedusers() {
         </div>
     );
 }
-export default AppWithRedusers;
+

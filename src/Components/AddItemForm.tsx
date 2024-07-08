@@ -1,8 +1,6 @@
 
 import * as React from 'react';
-// import {Button} from "./Button";
-import {ChangeEvent, KeyboardEvent, useState} from "react";
-import Button from '@mui/material/Button';
+import {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import {filterButtonsContainerSx} from "../Todolist.styles";
@@ -13,7 +11,8 @@ import {ControlPoint} from "@mui/icons-material";
 type AddItemFormType = {
     onClick: (newTitle: string) => void
 };
-export const AddItemForm = (props: AddItemFormType) => {
+export const AddItemForm = memo(  (props: AddItemFormType) => {
+
     const [title, setTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
     const addTaskHandler = () => {
@@ -29,18 +28,20 @@ export const AddItemForm = (props: AddItemFormType) => {
         setTitle(e.currentTarget.value)
     }
     const onKeyUpHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
+        if (error) {
+            setError(null)
+        }
         if (event.key === "Enter") {
             addTaskHandler()
         }
     }
 
-    const buttonStyle = {
-        maxWidth: "40px",
-        maxHeight:"40px",
-        minWidth:"40px",
-        minHeight:"40px",
-        }
+    // const buttonStyle = {
+    //     maxWidth: "40px",
+    //     maxHeight:"40px",
+    //     minWidth:"40px",
+    //     minHeight:"40px",
+    //     }
 
     return (
             <Box sx={filterButtonsContainerSx}>
@@ -54,18 +55,9 @@ export const AddItemForm = (props: AddItemFormType) => {
                     onChange={onchangeHandler}
                     onKeyUp={onKeyUpHandler}
                 />
-                {/*<input*/}
-                {/*    className={error ? "error" : ""}*/}
-                {/*    type="text"*/}
-                {/*    value={title}*/}
-                {/*    onChange={onchangeHandler}*/}
-                {/*    onKeyUp={onKeyUpHandler}*/}
-                {/*/>*/}
-
-                {/*<Button onClick={addTaskHandler} title={"x"}/>*/}
                 <IconButton onClick={addTaskHandler}  color={"primary"}>
                     <ControlPoint/>
                 </IconButton>
             </Box>
     );
-};
+});

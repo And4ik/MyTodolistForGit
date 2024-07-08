@@ -1,16 +1,16 @@
-// @flow
-import * as React from 'react';
+import  React from 'react';
+import {memo} from "react";
+import {Button} from "@mui/material";
+import {ButtonProps} from "@mui/material/Button";
 
-type Props = {
-    onClick: ()=> void
-    title: string
-    className?: string
-};
-export const Button = (props: Props) => {
-    const onClickHandler = () => {
-      props.onClick()
-    }
+type ButtonWithMemoPropsType = {} & ButtonProps
+export const ButtonWithMemo = memo(({variant, onClick,color,title, ...rest}: ButtonWithMemoPropsType) => {
     return (
-            <button className={props.className} onClick={onClickHandler}>{props.title}</button>
+            <Button
+                variant={variant}
+                color={color}
+                onClick={onClick}
+                {...rest}
+            >{title}</Button>
     );
-};
+});

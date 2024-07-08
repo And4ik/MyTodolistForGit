@@ -46,26 +46,32 @@ function App() {
             {id: v1(), title: 'GraphQL', isDone: false},
         ],
     })
+
     function changeFilter(todolistId: string, filter: FilterValuesType) {
         setTodolists(todolists.map(tl => tl.id === todolistId ? {...tl, filter: filter} : tl))
     }
+
     function removeTask(todolistId: string, taskId: string) {
         setTasks({...tasks, [todolistId]: tasks[todolistId].filter(t => t.id !== taskId)})
     }
+
     function addTask(todolistId: string, value: string) {
         let newTask = {id: v1(), title: value, isDone: false}
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
 
     }
+
     function changeTaskStatus(todolistId: string, taskId: string, taskStatus: boolean) {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskId ? {...t, isDone: taskStatus} : t)})
 
     }
+
     function removeTodolist(todolistId: string) {
         setTodolists(todolists.filter(t => t.id !== todolistId))
         delete tasks[todolistId]
         setTasks({...tasks})
     }
+
     function addTodolist(newTitle: string) {
         const newID = v1()
         const newTodolist: TodolistType = {id: newID, title: newTitle, filter: 'all'}
@@ -73,20 +79,20 @@ function App() {
         setTasks({...tasks, [newID]: []})
     }
 
-    const updateTask = (todolistId: string, taskID: string, newTitle: string) => {
+    const changeTaskTitle = (todolistId: string, taskID: string, newTitle: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(t => t.id === taskID ? {...t, title: newTitle} : t)})
     }
-    const updateTodolist = (todolistId: string, newTitle: string) => {
+    const changeTodolistTitle = (todolistId: string, newTitle: string) => {
         setTodolists(todolists.map(el => el.id === todolistId ? {...el, title: newTitle} : el))
     }
     type ThemeMode = "dark" | "light"
     const [themeMode, setThemeMode] = useState<ThemeMode>("light")
-    const changeModeHandler = ()=> {
-        setThemeMode(themeMode === "light" ? "dark": "light")
+    const changeModeHandler = () => {
+        setThemeMode(themeMode === "light" ? "dark" : "light")
     }
     const theme = createTheme({
         palette: {
-            mode: themeMode === "light" ? "light": "dark",
+            mode: themeMode === "light" ? "light" : "dark",
             primary: {
                 main: '#24be1d',
                 contrastText: 'white',
@@ -103,7 +109,7 @@ function App() {
         <div>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <Box sx={{ flexGrow: 1 }}>
+                <Box sx={{flexGrow: 1}}>
                     <AppBarHeader changeModeHandler={changeModeHandler}/>
                 </Box>
                 <Container fixed>
@@ -130,10 +136,10 @@ function App() {
                                         removeTask={removeTask}
                                         addTask={addTask}
                                         changeTaskStatus={changeTaskStatus}
-                                        filter={tl.filter}
                                         removeTodolist={removeTodolist}
-                                        updateTask={updateTask}
-                                        updateTodolist={updateTodolist}
+                                        changeTodolistTitle={changeTodolistTitle}
+                                        filter={tl.filter}
+                                        changeTaskTitle={changeTaskTitle}
                                     />
                                 </Paper>
                             </Grid>
@@ -145,4 +151,5 @@ function App() {
         </div>
     );
 }
+
 export default App;
