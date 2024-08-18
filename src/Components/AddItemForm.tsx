@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 
 import {ControlPoint} from "@mui/icons-material";
 
-type AddItemFormType = {
+export type AddItemFormType = {
     onClick: (newTitle: string) => void
 };
 export const AddItemForm = memo(  (props: AddItemFormType) => {
@@ -16,14 +16,14 @@ export const AddItemForm = memo(  (props: AddItemFormType) => {
     const [title, setTitle] = useState("")
     const [error, setError] = useState<string | null>(null)
     const addTaskHandler = () => {
-        let newTitle = title.trim()
-        if (newTitle.trim() !== "") {
-            props.onClick(newTitle)
+        if (title.trim() !== "") {
+            props.onClick(title)
             setTitle("")
         } else {
             setError("Title is required")
         }
     }
+
     const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
