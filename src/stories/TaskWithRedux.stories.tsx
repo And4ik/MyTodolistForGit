@@ -15,7 +15,6 @@ const meta: Meta<typeof TaskWithRedux> = {
   parameters:{
     layout: "centered"
   },
-  tags: ["autodocs"],
   decorators: [ReduxStoreProviderDecorator]
 };
 export default meta;

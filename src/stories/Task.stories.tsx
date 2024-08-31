@@ -13,7 +13,6 @@ const meta: Meta<typeof Task> = {
   parameters:{
     layout: "centered"
   },
-  tags: ["autodocs"],
   args: {
     task: {id: "3", title: "Js", isDone: false},
     todolistId: "qwertweqeqw",

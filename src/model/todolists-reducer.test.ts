@@ -18,7 +18,6 @@ beforeEach(()=>{
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ]
-
 })
 
 test( "correct todolist should be removed",()=> {

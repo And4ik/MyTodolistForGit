@@ -69,13 +69,3 @@ export const tasksReducer = (state = initialState, action:ActionsType) :TasksSta
   export const ChangeTaskTitleAC = (todolistId:string, taskId: string, title: string)=> {
       return {type: "CHANGE-TASK-TITLE",todolistId,taskId,title } as const
   }
-// export const firstAC = (id: string)=> {
-//     return {
-//         type: "",
-// }
-// export const secondAC = (title: string)=> {
-//     return {
-//         type: "",
-//     } as const
-// }
-
