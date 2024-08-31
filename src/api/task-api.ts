@@ -7,15 +7,30 @@ const instanceTask = axios.create({
         "API-KEY": "48a6b150-1e1e-4fb8-82c1-cdf0881e26ed"
     }
 })
+
+export enum TaskStatuses {
+    New = 0, //isDone:false
+    InProgress = 1,
+    Completed = 2, // isDone:true
+    Draft = 3
+}
+export enum TaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4
+}
+
 export type TaskType = {
-    description: string
+    id: string
     title: string
-    status: number
-    priority: number
+    status: TaskStatuses
+    todoListId: string
+    description: string
+    priority: TaskPriorities
     startDate: string
     deadline: string
-    id: string
-    todoListId: string
     order: number
     addedDate: string
 }

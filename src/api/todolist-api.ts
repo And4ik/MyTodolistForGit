@@ -6,7 +6,7 @@ const instanceTodolist = axios.create({
         "API-KEY": "48a6b150-1e1e-4fb8-82c1-cdf0881e26ed"
     }
 })
-type TodolistType = {
+export type TodolistType = {
     "id": string,
     "title": string,
     "addedDate": string,

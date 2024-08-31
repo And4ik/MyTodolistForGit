@@ -1,6 +1,7 @@
   import {v1} from "uuid";
 import {TasksStateType} from "../App";
   import {AddTodolistActionsType, RemoveTodolistActionsType} from "./todolists-reducer";
+  import {TaskPriorities, TaskStatuses} from "../api/task-api";
 
 
 
@@ -30,11 +31,11 @@ export const tasksReducer = (state = initialState, action:ActionsType) :TasksSta
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].filter(t=> t.id !== action.payload.taskId)}
         }
         case "ADD-TASK": {
-            let newTask = {id: v1(), title: action.title, isDone: false}
+            let newTask = {id: v1(), title: action.title, status: TaskStatuses.New, todoListId: action.todolistId, order: 0, addedDate:"", priority:TaskPriorities.Low,description: "",startDate: "",deadline:""}
             return {...state, [action.todolistId]: [newTask, ...state[action.todolistId]]}
         }
         case "CHANGE-TASK-STATUS": {
-            return {...state,[action.todolistId]: state[action.todolistId].map(t=> t.id === action.taskId ? {...t, isDone: action.taskStatus}: t) }
+            return {...state,[action.todolistId]: state[action.todolistId].map(t=> t.id === action.taskId ? {...t, status: action.status}: t) }
         }
         case "CHANGE-TASK-TITLE": {
             return {...state,[action.todolistId]: state[action.todolistId].map(t=> t.id === action.taskId ? {...t, title: action.title}: t) }
@@ -63,8 +64,8 @@ export const tasksReducer = (state = initialState, action:ActionsType) :TasksSta
   export const AddTaskAC = (todolistId:string, title:string)=> {
       return {type: "ADD-TASK",todolistId,title } as const
   }
-  export const ChangeTaskStatusAC = (taskId:string, taskStatus: boolean, todolistId:string)=> {
-      return {type: "CHANGE-TASK-STATUS",todolistId,taskId,taskStatus } as const
+  export const ChangeTaskStatusAC = (taskId:string, status: TaskStatuses, todolistId:string)=> {
+      return {type: "CHANGE-TASK-STATUS",todolistId,taskId,status } as const
   }
   export const ChangeTaskTitleAC = (todolistId:string, taskId: string, title: string)=> {
       return {type: "CHANGE-TASK-TITLE",todolistId,taskId,title } as const

@@ -6,31 +6,26 @@ import {Container, createTheme, CssBaseline, Grid, ThemeProvider} from "@mui/mat
 import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
 import {AppBarHeader} from "./Components/AppBarHeader";
-import {AddTodolistAC, ChangeFilterAC, RemoveTodolistAC, UpdateTodolistAC,} from "./model/todolists-reducer";
+import {
+    AddTodolistAC,
+    ChangeFilterAC,
+    FilterValuesType,
+    RemoveTodolistAC, TodolistDomainType,
+    UpdateTodolistAC,
+} from "./model/todolists-reducer";
 import {AddTaskAC, ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from "./model/task-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./model/store";
+import {TaskStatuses, TaskType} from "./api/task-api";
 
-export type FilterValuesType = "all" | "active" | "completed"
 
-export type TasksType = {
-    id: string
-    title: string
-    isDone: boolean
-}
-
-export type TodolistType = {
-    id: string,
-    title: string,
-    filter: FilterValuesType
-}
 export type TasksStateType = {
-    [key: string]: TasksType[]
+    [key: string]: TaskType[]
 }
 
 function AppWithRedux() {
 
-    let todolists = useSelector<AppRootStateType, Array<TodolistType>>(state=> state.todolists)
+    let todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state=> state.todolists)
     let tasks = useSelector<AppRootStateType, TasksStateType>(state=> state.tasks)
 
     const dispatch = useDispatch()
@@ -43,8 +38,8 @@ function AppWithRedux() {
     const addTask = useCallback((todolistId: string, value: string)=> {
         dispatch(AddTaskAC(todolistId, value))
     },[dispatch])
-    const changeTaskStatus = useCallback((todolistId: string, taskId: string, taskStatus: boolean)=> {
-        dispatch(ChangeTaskStatusAC(taskId, taskStatus, todolistId))
+    const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses)=> {
+        dispatch(ChangeTaskStatusAC(taskId, status, todolistId))
     },[dispatch])
     const removeTodolist = useCallback((todolistId: string) =>{
         dispatch(RemoveTodolistAC(todolistId))
@@ -59,8 +54,8 @@ function AppWithRedux() {
         dispatch(UpdateTodolistAC(todolistId,newTitle))
     },[dispatch])
 
-    type ThemeMode = "dark" | "light"
-    const [themeMode, setThemeMode] = useState<ThemeMode>("light")
+    type ThemeMod = "dark" | "light"
+    const [themeMode, setThemeMode] = useState<ThemeMod>("light")
     const changeModeHandler = ()=> {
         setThemeMode(themeMode === "light" ? "dark": "light")
     }
