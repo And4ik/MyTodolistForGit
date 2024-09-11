@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import {taskApi} from "../api/task-api";
+import React, {useEffect, useState} from 'react'
+import {taskApi, TaskStatuses, UpdateTaskModelType} from "../api/task-api";
 
 export default {
     title: 'API for Task',
 }
-export const GetTask = () => {
+export const getTasks = () => {
     const [state, setState] = useState<any>(null)
 
     useEffect(() => {
 
         const todolistId = "b50243d0-7316-42de-a213-e271d79b2de3"
-        taskApi.getTask(todolistId).then((res)=> {
+        taskApi.getTasks(todolistId).then((res)=> {
             setState(res.data)
         })
     }, [])
@@ -46,8 +46,16 @@ export const UpdateTask = () => {
     useEffect(() => {
         const todolistId = "b50243d0-7316-42de-a213-e271d79b2de3"
         const taskId = "e3c7c6d0-e6ac-4ec5-b432-ce1923f294d0"
-        const title = "it earl was new task"
-        taskApi.updateTask(todolistId,taskId,title).then((res)=> {
+
+        const model: UpdateTaskModelType = {
+            title: "it earl was new task",
+            description: "",
+            priority: 0,
+            startDate: "",
+            deadline: "",
+            status: TaskStatuses.New,
+        }
+        taskApi.updateTask(todolistId,taskId,model).then((res)=> {
             setState(res.data)
         })
     }, [])

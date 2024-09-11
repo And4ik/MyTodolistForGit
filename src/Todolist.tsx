@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 
 import {AddItemForm} from "./Components/AddItemForm";
 import {EditableSpan} from "./Components/EditableSpan";
@@ -12,6 +12,8 @@ import {ButtonWithMemo} from "./Components/Button";
 import {Task} from "./Task";
 import {FilterValuesType} from "./model/todolists-reducer";
 import {TaskStatuses, TaskType} from "./api/task-api";
+import {useAppDispatch} from "./model/store";
+import {getTasksTC} from "./model/task-reducer";
 
 
 type Props = {
@@ -28,6 +30,12 @@ type Props = {
     changeTaskTitle: (todolistId: string, taskID: string, newTitle: string) => void
 };
 export const Todolist = memo((props: Props) => {
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(getTasksTC(props.todolistId))
+    }, [])
+
     const removeTodolistHandler = () => {
         props.removeTodolist(props.todolistId)
     }

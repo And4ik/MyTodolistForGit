@@ -12,8 +12,10 @@ import {
     AddTodolistAC,
     ChangeFilterAC,
     FilterValuesType,
-    RemoveTodolistAC, TodolistDomainType,
-    todolistsReducer, UpdateTodolistAC,
+    RemoveTodolistAC,
+    TodolistDomainType,
+    todolistsReducer,
+    UpdateTodolistAC,
 } from "./model/todolists-reducer";
 import {AddTaskAC, ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC, tasksReducer} from "./model/task-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "./api/task-api";
@@ -24,6 +26,7 @@ export type TasksStateType = {
 }
 
 export function AppWithRedusers () {
+
     let todolistID1 = v1()
     let todolistID2 = v1()
 
@@ -50,7 +53,18 @@ export function AppWithRedusers () {
         dispatchToTasks(RemoveTaskAC(taskId, todolistId))
     }
     function addTask(todolistId: string, value: string) {
-        dispatchToTasks(AddTaskAC(todolistId, value))
+        dispatchToTasks(AddTaskAC({
+            todoListId: todolistId,
+            title:value,
+            status: TaskStatuses.New,
+            addedDate: "",
+            deadline:"",
+            id: "fdsfsd",
+            order:0,
+            priority:0,
+            description:"",
+            startDate:"",
+        }))
     }
     function changeTaskStatus(todolistId: string, taskId: string, status: TaskStatuses) {
         dispatchToTasks(ChangeTaskStatusAC(taskId, status, todolistId))
@@ -61,7 +75,12 @@ export function AppWithRedusers () {
         dispatchToTasks(action)
     }
     function addTodolist(newTitle: string) {
-        let action = AddTodolistAC(newTitle)
+        let action = AddTodolistAC({
+            id: v1(),
+            title: newTitle,
+            addedDate: "",
+            order: 0
+        })
         dispatchToTodolists(action)
         dispatchToTasks(action)
     }

@@ -1,16 +1,17 @@
 import axios  from "axios";
 const instanceTodolist = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1",
+
     withCredentials: true,
     headers: {
-        "API-KEY": "48a6b150-1e1e-4fb8-82c1-cdf0881e26ed"
+        "API-KEY": "18893e08-0c1d-460c-bd5d-e648cb9d966d"
     }
 })
 export type TodolistType = {
-    "id": string,
-    "title": string,
-    "addedDate": string,
-    "order": number
+    id: string,
+    title: string,
+    addedDate: string,
+    order: number
 }
 
 type ResponseTodolistType<T= {}> = {
@@ -20,8 +21,9 @@ type ResponseTodolistType<T= {}> = {
     messages: string[],
 }
 
+
 export const todolistApi = {
-    getTodolist() {
+    getTodolists() {
         return instanceTodolist.get<TodolistType[]>(`/todo-lists`)
     },
     createTodolist(title: string) {

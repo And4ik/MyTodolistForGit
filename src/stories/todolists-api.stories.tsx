@@ -7,10 +7,10 @@ export default {
     title: 'API for Todolist'
 }
 
-export const GetTodolists = () => {
+export const getTodolistss = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistApi.getTodolist().then((res)=>{
+        todolistApi.getTodolists().then((res)=>{
             setState(res.data)
         })
     }, [])

@@ -26,7 +26,18 @@ const Task:React.FC = () => {
   let task = useSelector<AppRootStateType, TaskType>(state => state.tasks["todolistId1"][0])
   if (!task) {
     task = {id: v1(), title: "React and Redux", status: TaskStatuses.New,todoListId: "todolistId1", order: 0, addedDate:"", priority:TaskPriorities.Low,description: "",startDate: "",deadline:"" }
-    dispatch(AddTaskAC("todolistId1", "Default Task"))
+    dispatch(AddTaskAC({
+      todoListId: "fds",
+      title:"new titile",
+      status: TaskStatuses.New,
+      addedDate: "",
+      deadline:"",
+      id: "fdsfsd",
+      order:0,
+      priority:0,
+      description:"",
+      startDate:"",
+    }))
   }
 
   return <TaskWithRedux task={task} todolistId={"todolistId1"} />
