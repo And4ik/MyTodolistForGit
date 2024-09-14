@@ -1,14 +1,14 @@
 import React from 'react';
-import {getListItemSx} from "./Todolist.styles";
-import {EditableSpan} from "./Components/EditableSpan";
+import {getListItemSx} from "../Todolist.styles";
+import {EditableSpan} from "../../../../Components/EditableSpan";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ListItem from "@mui/material/ListItem";
 import {ChangeEvent, memo} from "react";
 import {useDispatch} from "react-redux";
-import {ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from "./model/task-reducer";
-import {TaskStatuses, TaskType} from "./api/task-api";
+import {ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from "../../task-reducer";
+import {TaskStatuses, TaskType} from "../../../../api/task-api";
 
 type TaskWithReduxPropsType = {
     task: TaskType

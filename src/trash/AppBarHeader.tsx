@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-import {MenuButton} from "../MenuButton";
+import {MenuButton} from "./MenuButton";
 import Switch from "@mui/material/Switch";
 
 type AppBarHeaderType = {

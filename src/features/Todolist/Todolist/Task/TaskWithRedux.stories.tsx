@@ -1,13 +1,13 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import * as React from "react";
-import {TaskWithRedux} from "../TaskWithRedux";
-import {ReduxStoreProviderDecorator} from "./ReduxStoreProviderDecorator";
+import {TaskWithRedux} from "./TaskWithRedux";
+import {ReduxStoreProviderDecorator} from "../../../../app/ReduxStoreProviderDecorator";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../model/store";
+import {AppRootStateType} from "../../../../app/store";
 
 import {v1} from "uuid";
-import {AddTaskAC} from "../model/task-reducer";
-import {TaskPriorities, TaskStatuses, TaskType} from "../api/task-api";
+import {AddTaskAC} from "../../task-reducer";
+import {TaskPriorities, TaskStatuses, TaskType} from "../../../../api/task-api";
 
 const meta: Meta<typeof TaskWithRedux> = {
   title: 'TODOLISTS/TaskWithRedux',

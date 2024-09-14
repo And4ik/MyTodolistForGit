@@ -4,8 +4,8 @@ import {Provider} from "react-redux";
 import {combineReducers, legacy_createStore} from "redux";
 
 import {v1} from "uuid";
-import {tasksReducer} from "../model/task-reducer";
-import {todolistsReducer} from "../model/todolists-reducer";
+import {tasksReducer} from "../features/Todolist/task-reducer";
+import {todolistsReducer} from "../features/Todolist/todolists-reducer";
 
 import {TaskPriorities, TaskStatuses} from "../api/task-api";
 

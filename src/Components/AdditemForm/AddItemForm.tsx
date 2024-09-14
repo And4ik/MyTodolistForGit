@@ -3,7 +3,7 @@ import * as React from 'react';
 import {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import {filterButtonsContainerSx} from "../Todolist.styles";
+import {filterButtonsContainerSx} from "../../features/Todolist/Todolist/Todolist.styles";
 import IconButton from "@mui/material/IconButton";
 
 import {ControlPoint} from "@mui/icons-material";
