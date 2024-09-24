@@ -36,7 +36,7 @@ export const TodolistsList: React.FC = () => {
     }, [dispatch])
 
     const changeTaskStatus = useCallback((todolistId: string, taskId: string, status: TaskStatuses) => {
-        debugger
+
         dispatch(updateTaskStatusTC(todolistId, taskId, status))
     }, [dispatch])
 
@@ -83,6 +83,7 @@ export const TodolistsList: React.FC = () => {
                             changeTodolistTitle={changeTodolistTitle}
                             filter={tl.filter}
                             changeTaskTitle={changeTaskTitle}
+                            entityStatus={tl.entityStatus}
                         />
                     </Paper>
                 </Grid>

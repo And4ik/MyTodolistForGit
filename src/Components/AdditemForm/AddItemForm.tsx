@@ -10,6 +10,7 @@ import {ControlPoint} from "@mui/icons-material";
 
 export type AddItemFormType = {
     onClick: (newTitle: string) => void
+    disabled?:boolean
 };
 export const AddItemForm = memo(  (props: AddItemFormType) => {
 
@@ -54,8 +55,9 @@ export const AddItemForm = memo(  (props: AddItemFormType) => {
                     value={title}
                     onChange={onchangeHandler}
                     onKeyUp={onKeyUpHandler}
+                    disabled={props.disabled}
                 />
-                <IconButton onClick={addTaskHandler}  color={"primary"}>
+                <IconButton onClick={addTaskHandler} disabled={props.disabled} color={"primary"}>
                     <ControlPoint/>
                 </IconButton>
             </Box>

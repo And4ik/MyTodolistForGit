@@ -8,11 +8,10 @@ import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
 import {AppBarHeader} from "./AppBarHeader";
 import {
-    ActionsType,
     AddTodolistAC,
     ChangeFilterAC,
     FilterValuesType,
-    RemoveTodolistAC,
+    RemoveTodolistAC, TodolistActionsType,
     TodolistDomainType,
     todolistsReducer,
     UpdateTodolistAC,
@@ -30,9 +29,9 @@ export function AppWithRedusers () {
     let todolistID1 = v1()
     let todolistID2 = v1()
 
-    let [todolists, dispatchToTodolists] = useReducer<Reducer<TodolistDomainType[], ActionsType>>(todolistsReducer,[
-        {id: todolistID1, title: 'What to learn', filter: 'all', addedDate: "", order: 0},
-        {id: todolistID2, title: 'What to buy', filter: 'all', addedDate: "", order: 0},
+    let [todolists, dispatchToTodolists] = useReducer<Reducer<TodolistDomainType[], TodolistActionsType>>(todolistsReducer,[
+        {id: todolistID1, title: 'What to learn', filter: 'all', addedDate: "", order: 0,entityStatus: "idle"},
+        {id: todolistID2, title: 'What to buy', filter: 'all', addedDate: "", order: 0,entityStatus: "idle"},
     ])
 
     let [tasks, dispatchToTasks] = useReducer(tasksReducer,{
@@ -146,6 +145,7 @@ export function AppWithRedusers () {
                                         changeTodolistTitle={changeTodolistTitle}
                                         filter={tl.filter}
                                         changeTaskTitle={changeTaskTitle}
+                                        entityStatus={tl.entityStatus}
                                     />
                                 </Paper>
                             </Grid>

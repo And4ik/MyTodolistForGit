@@ -62,7 +62,7 @@ type getTasksResponse = {
     totalCount: number
     error: string | null
 }
-type ResponseTaskType<D= {}> = {
+export type ResponseTaskType<D= {}> = {
     data: D ,
     fieldsErrors: string[],
     resultCode: number

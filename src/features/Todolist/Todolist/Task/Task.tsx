@@ -1,6 +1,6 @@
 import React, {ChangeEvent, memo} from 'react';
 import {getListItemSx} from "../Todolist.styles";
-import {EditableSpan} from "../../../../Components/EditableSpan";
+import {EditableSpan} from "../../../../Components/EditableSpan/EditableSpan";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,7 +19,6 @@ export const Task = memo(({task,todolistId,removeTask,changeTaskStatus,changeTas
         removeTask(todolistId, task.id)
     }
     const onTaskStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        debugger
         const newStatusValue = e.currentTarget.checked
        changeTaskStatus(todolistId, task.id, newStatusValue ? TaskStatuses.Completed : TaskStatuses.New)
     }

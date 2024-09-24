@@ -5,7 +5,10 @@ import Box from "@mui/material/Box";
 import {AppBarHeader} from "../trash/AppBarHeader";
 import {TaskType} from "../api/task-api";
 import {TodolistsList} from "../features/Todolist/TodolistList";
-
+import LinearProgress from '@mui/material/LinearProgress';
+import {useAppSelector} from "./store";
+import {RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from "../Components/ErrorSnackbar/ErrorSnackbar";
 
 export type TasksStateType = {
     [key: string]: TaskType[]
@@ -13,6 +16,7 @@ export type TasksStateType = {
 
 function AppWithRedux() {
 
+    const status = useAppSelector<RequestStatusType>(state => state.app.status)
 
     type ThemeMod = "dark" | "light"
     const [themeMode, setThemeMode] = useState<ThemeMod>("light")
@@ -37,13 +41,20 @@ function AppWithRedux() {
     return (
         <div>
             <ThemeProvider theme={theme}>
+
+                <ErrorSnackbar/>
                 <CssBaseline/>
                 <Box sx={{ flexGrow: 1 }}>
                     <AppBarHeader changeModeHandler={changeModeHandler}/>
                 </Box>
+                {
+                    status === "loading" && <LinearProgress color={"success"}/>
+                }
                 <Container fixed>
                     <TodolistsList />
                 </Container>
+
+
             </ThemeProvider>
 
         </div>

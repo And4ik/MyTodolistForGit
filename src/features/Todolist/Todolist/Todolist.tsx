@@ -2,7 +2,7 @@ import * as React from 'react';
 import {memo, useCallback, useEffect} from 'react';
 
 import {AddItemForm} from "../../../Components/AdditemForm/AddItemForm";
-import {EditableSpan} from "../../../Components/EditableSpan";
+import {EditableSpan} from "../../../Components/EditableSpan/EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import List from '@mui/material/List';
@@ -14,6 +14,7 @@ import {FilterValuesType} from "../todolists-reducer";
 import {TaskStatuses, TaskType} from "../../../api/task-api";
 import {useAppDispatch} from "../../../app/store";
 import {getTasksTC} from "../task-reducer";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 
 type Props = {
@@ -28,6 +29,7 @@ type Props = {
     changeTodolistTitle: (todolistId: string, newTitle: string) => void
     filter: FilterValuesType
     changeTaskTitle: (todolistId: string, taskID: string, newTitle: string) => void
+    entityStatus: RequestStatusType
 };
 export const Todolist = memo((props: Props) => {
     const dispatch = useAppDispatch()
@@ -65,11 +67,13 @@ export const Todolist = memo((props: Props) => {
         <div>
             <h3>
                 <EditableSpan oldTitle={props.title} onClick={updateTodolistHandler}/>
-                <IconButton onClick={removeTodolistHandler} aria-label="delete" size="small">
+                <IconButton onClick={removeTodolistHandler}
+                            disabled={props.entityStatus === "loading"}
+                            aria-label="delete" size="small">
                     <DeleteIcon fontSize="small"/>
                 </IconButton>
             </h3>
-            <AddItemForm onClick={addTaskHandler}/>
+            <AddItemForm onClick={addTaskHandler} disabled={props.entityStatus === 'loading'}/>
             <List>
                 {tasks.map(t => {
 

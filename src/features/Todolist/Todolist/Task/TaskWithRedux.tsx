@@ -1,6 +1,6 @@
 import React from 'react';
 import {getListItemSx} from "../Todolist.styles";
-import {EditableSpan} from "../../../../Components/EditableSpan";
+import {EditableSpan} from "../../../../Components/EditableSpan/EditableSpan";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";

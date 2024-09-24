@@ -1,10 +1,10 @@
 import type {Meta, StoryObj} from '@storybook/react';
 
 import {action} from '@storybook/addon-actions'
-import {AddItemForm, AddItemFormType} from "./AdditemForm/AddItemForm";
+import {AddItemForm, AddItemFormType} from "../AdditemForm/AddItemForm";
 import {ChangeEvent, KeyboardEvent, memo, useState} from "react";
 import Box from "@mui/material/Box";
-import {filterButtonsContainerSx} from "../features/Todolist/Todolist/Todolist.styles";
+import {filterButtonsContainerSx} from "../../features/Todolist/Todolist/Todolist.styles";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import {ControlPoint} from "@mui/icons-material";
