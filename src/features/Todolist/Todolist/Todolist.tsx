@@ -34,9 +34,9 @@ type Props = {
 export const Todolist = memo((props: Props) => {
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(getTasksTC(props.todolistId))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getTasksTC(props.todolistId))
+    // }, [])
 
     const removeTodolistHandler = () => {
         props.removeTodolist(props.todolistId)
@@ -66,7 +66,7 @@ export const Todolist = memo((props: Props) => {
     return (
         <div>
             <h3>
-                <EditableSpan oldTitle={props.title} onClick={updateTodolistHandler}/>
+                <EditableSpan oldTitle={props.title} onClick={updateTodolistHandler} disabled={props.entityStatus === 'loading'}/>
                 <IconButton onClick={removeTodolistHandler}
                             disabled={props.entityStatus === "loading"}
                             aria-label="delete" size="small">

@@ -7,11 +7,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import {MenuButton} from "./MenuButton";
 import Switch from "@mui/material/Switch";
+import {useAppDispatch, useAppSelector} from "../app/store";
+import {logOutTC} from "../features/Login/auth-reducer";
 
 type AppBarHeaderType = {
     changeModeHandler: ()=> void
 }
 export const AppBarHeader = (props: AppBarHeaderType) => {
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch()
+
+    const logOutHandler = () => {
+        dispatch(logOutTC())
+    }
     return (
         <div>
             <AppBar position="static">
@@ -28,8 +36,7 @@ export const AppBarHeader = (props: AppBarHeaderType) => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         News
                     </Typography>
-                    <MenuButton color="inherit">Login</MenuButton>
-                    <MenuButton color="inherit">Logout</MenuButton>
+                    {isLoggedIn && <MenuButton color="inherit" onClick={logOutHandler}>Logout</MenuButton>}
                     <MenuButton color="inherit">Faq</MenuButton>
                     <Switch color={"default"} onChange={props.changeModeHandler}/>
                 </Toolbar>

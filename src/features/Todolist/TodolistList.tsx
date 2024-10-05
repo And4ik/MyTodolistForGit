@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../app/store";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "../../app/store";
 import {
     ChangeFilterAC,
     changeTodolistTitleTC,
@@ -17,11 +17,12 @@ import {AddItemForm} from "../../Components/AdditemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
 import {Todolist} from "./Todolist/Todolist";
 import {TasksStateType} from "../../app/AppWithRedux";
+import {Navigate} from "react-router-dom";
 
 export const TodolistsList: React.FC = () => {
     let todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
     const changeFilter = useCallback((todolistId: string, filter: FilterValuesType) => {
         dispatch(ChangeFilterAC(todolistId, filter))
@@ -60,6 +61,11 @@ export const TodolistsList: React.FC = () => {
     useEffect(() => {
         dispatch(getTodolistsTC)
     }, [dispatch])
+
+
+    if (!isLoggedIn) {
+        return <Navigate to={"/login"} />
+    }
 
     return <>
         <Grid container sx={{padding: "15px"}}>

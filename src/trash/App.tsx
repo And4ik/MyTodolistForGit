@@ -9,9 +9,11 @@ import Box from "@mui/material/Box";
 import {AppBarHeader} from "./AppBarHeader";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/task-api";
 import {FilterValuesType, TodolistDomainType} from "../features/Todolist/todolists-reducer";
+import {RequestStatusType} from "../app/app-reducer";
 
 export type TasksStateType = {
     [key: string]: TaskType[]
+
 }
 
 function App() {

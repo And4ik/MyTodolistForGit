@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 type EditableSpanType = {
     oldTitle: string
     onClick: (newTitle: string)=> void
+    disabled?: boolean
 };
 export const EditableSpan = memo((props: EditableSpanType) => {
     const [edit, setEdit] = useState(false)
@@ -29,7 +30,9 @@ export const EditableSpan = memo((props: EditableSpanType) => {
                 onBlur={editHandler}
                 autoFocus
                 size={'small'}
-                onChange={onchangeHandler}/>
+                onChange={onchangeHandler}
+                disabled={props.disabled}
+            />
             :<span onDoubleClick={editHandler}>{props.oldTitle}</span>
 
     );

@@ -1,27 +1,42 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Box from "@mui/material/Box";
 import {AppBarHeader} from "../trash/AppBarHeader";
 import {TaskType} from "../api/task-api";
-import {TodolistsList} from "../features/Todolist/TodolistList";
 import LinearProgress from '@mui/material/LinearProgress';
-import {useAppSelector} from "./store";
+import {useAppDispatch, useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../Components/ErrorSnackbar/ErrorSnackbar";
+import {Outlet} from "react-router-dom";
+import {meTC} from "../features/Login/auth-reducer";
+import CircularProgress from '@mui/material/CircularProgress'
 
 export type TasksStateType = {
     [key: string]: TaskType[]
 }
 
 function AppWithRedux() {
-
-    const status = useAppSelector<RequestStatusType>(state => state.app.status)
-
     type ThemeMod = "dark" | "light"
     const [themeMode, setThemeMode] = useState<ThemeMod>("light")
     const changeModeHandler = ()=> {
         setThemeMode(themeMode === "light" ? "dark": "light")
+    }
+
+    const status = useAppSelector<RequestStatusType>(state => state.app.status)
+    const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+    const dispatch = useAppDispatch()
+
+    useEffect(()=> {
+        dispatch(meTC())
+    }, [])
+
+    if (!isInitialized) {
+        return (
+            <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+                <CircularProgress />
+            </div>
+        )
     }
     const theme = createTheme({
         palette: {
@@ -38,6 +53,9 @@ function AppWithRedux() {
             },
         },
     })
+
+
+
     return (
         <div>
             <ThemeProvider theme={theme}>
@@ -51,10 +69,8 @@ function AppWithRedux() {
                     status === "loading" && <LinearProgress color={"success"}/>
                 }
                 <Container fixed>
-                    <TodolistsList />
+                   <Outlet />
                 </Container>
-
-
             </ThemeProvider>
 
         </div>
