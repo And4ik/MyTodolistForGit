@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react"
 import "./App.css"
 import { Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material"
 import Box from "@mui/material/Box"
-import { AppBarHeader } from "../trash/AppBarHeader"
-import { TaskType } from "../api/task-api"
+import { AppBarHeader } from "trash/AppBarHeader"
+import { TaskType } from "api/task-api"
 import LinearProgress from "@mui/material/LinearProgress"
-import { useAppDispatch, useAppSelector } from "./store"
-import { RequestStatusType } from "app/appSlice"
-import { ErrorSnackbar } from "../Components/ErrorSnackbar/ErrorSnackbar"
+import { useAppDispatch } from "./store"
+import { ErrorSnackbar } from "Components/ErrorSnackbar/ErrorSnackbar"
 import { Outlet } from "react-router-dom"
 import { meTC } from "features/Login/authSlice"
 import CircularProgress from "@mui/material/CircularProgress"
+import { useSelector } from "react-redux"
+import { selectIsInitialized, selectStatus } from "app/appSlice"
 
 export type TasksStateType = {
   [key: string]: TaskType[]
@@ -23,8 +24,9 @@ function AppWithRedux() {
     setThemeMode(themeMode === "light" ? "dark" : "light")
   }
 
-  const status = useAppSelector<RequestStatusType>((state) => state.app.status)
-  const isInitialized = useAppSelector<boolean>((state) => state.app.isInitialized)
+  const status = useSelector(selectStatus)
+  const isInitialized = useSelector(selectIsInitialized)
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {

@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client"
 import "./index.css"
 import reportWebVitals from "./reportWebVitals"
 import AppWithRedux from "./app/AppWithRedux"
-import { store } from "./app/store"
+import { store } from "app/store"
 import { Provider } from "react-redux"
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
-import { Login } from "./features/Login/Login"
+import { Login } from "features/Login/Login"
 
-import { ErrorPage } from "./Components/ErrorPage/ErrorPage"
-import { TodolistsList } from "./features/Todolist/TodolistList"
+import { ErrorPage } from "Components/ErrorPage/ErrorPage"
+import { TodolistsList } from "features/Todolist/TodolistList"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 

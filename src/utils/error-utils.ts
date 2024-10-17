@@ -1,7 +1,7 @@
 import { Dispatch } from "redux"
 import { setAppError, setAppStatus } from "app/appSlice"
-import { ResponseTodolistType } from "../api/todolist-api"
-import { ResponseTaskType } from "../api/task-api"
+import { ResponseTodolistType } from "api/todolist-api"
+import { ResponseTaskType } from "api/task-api"
 
 export const handleServerAppError = (dispatch: Dispatch, data: ResponseTodolistType | ResponseTaskType) => {
   dispatch(setAppError({ error: data.messages.length ? data.messages[0] : "Some error occurred" }))

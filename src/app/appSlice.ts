@@ -25,11 +25,16 @@ const appSlice = createSlice({
       state.isInitialized = action.payload.isInitialized
     },
   },
+  selectors: {
+    selectError: (state) => state.error,
+    selectStatus: (state) => state.status,
+    selectIsInitialized: (state) => state.isInitialized,
+  },
 })
 
 export const appReducer = appSlice.reducer
 export const { setAppStatus, setAppError, setIsInitialized } = appSlice.actions
-
+export const { selectError, selectStatus, selectIsInitialized } = appSlice.selectors
 // export const setAppStatusAC = (status: RequestStatusType) => ({ type: "APP/SET-STATUS", status }) as const
 // export const setAppErrorAC = (error: string | null) => ({ type: "APP/SET-ERROR", error }) as const
 // export const setIsInitializedAC = (isInitialized: boolean) => ({ type: "APP/SET-INITIALIZED", isInitialized }) as const

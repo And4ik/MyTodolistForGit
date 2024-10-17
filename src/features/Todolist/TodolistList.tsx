@@ -1,32 +1,38 @@
 import React, { useCallback, useEffect } from "react"
 import { useSelector } from "react-redux"
-import { AppRootStateType, useAppDispatch, useAppSelector } from "../../app/store"
+import { useAppDispatch } from "app/store"
 import {
-  ChangeFilterAC,
+  ChangeTodolistFilter,
   changeTodolistTitleTC,
   createTodolistTC,
   deleteTodolistTC,
   FilterValuesType,
   getTodolistsTC,
-  TodolistDomainType,
-} from "./todolists-reducer"
-import { createTaskTC, removeTaskTC, updateTaskStatusTC, updateTaskTitleTC } from "./task-reducer"
-import { TaskStatuses } from "../../api/task-api"
+  selectTodolists,
+} from "features/Todolist/todolistsSlice"
+import {
+  createTaskTC,
+  removeTaskTC,
+  selectTasks,
+  updateTaskStatusTC,
+  updateTaskTitleTC,
+} from "features/Todolist/tasksSlice"
+import { TaskStatuses } from "api/task-api"
 import { Grid } from "@mui/material"
-import { AddItemForm } from "../../Components/AdditemForm/AddItemForm"
+import { AddItemForm } from "Components/AdditemForm/AddItemForm"
 import Paper from "@mui/material/Paper"
 import { Todolist } from "./Todolist/Todolist"
-import { TasksStateType } from "../../app/AppWithRedux"
 import { Navigate } from "react-router-dom"
+import { selectIsLoggedIn } from "features/Login/authSlice"
 
 export const TodolistsList: React.FC = () => {
-  let todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>((state) => state.todolists)
-  let tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks)
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  let todolists = useSelector(selectTodolists)
+  let tasks = useSelector(selectTasks)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
   const dispatch = useAppDispatch()
   const changeFilter = useCallback(
-    (todolistId: string, filter: FilterValuesType) => {
-      dispatch(ChangeFilterAC(todolistId, filter))
+    (id: string, filter: FilterValuesType) => {
+      dispatch(ChangeTodolistFilter({ id, filter }))
     },
     [dispatch],
   )

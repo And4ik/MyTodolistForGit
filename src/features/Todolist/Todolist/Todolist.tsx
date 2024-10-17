@@ -1,19 +1,17 @@
 import * as React from "react"
-import { memo, useCallback, useEffect } from "react"
+import { memo, useCallback } from "react"
 
-import { AddItemForm } from "../../../Components/AdditemForm/AddItemForm"
-import { EditableSpan } from "../../../Components/EditableSpan/EditableSpan"
+import { AddItemForm } from "Components/AdditemForm/AddItemForm"
+import { EditableSpan } from "Components/EditableSpan/EditableSpan"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import List from "@mui/material/List"
 import Box from "@mui/material/Box"
 import { filterButtonsContainerSx } from "./Todolist.styles"
-import { ButtonWithMemo } from "../../../Components/Button"
+import { ButtonWithMemo } from "Components/Button"
 import { Task } from "./Task/Task"
-import { FilterValuesType } from "../todolists-reducer"
-import { TaskStatuses, TaskType } from "../../../api/task-api"
-import { useAppDispatch } from "../../../app/store"
-import { getTasksTC } from "../task-reducer"
+import { FilterValuesType } from "features/Todolist/todolistsSlice"
+import { TaskStatuses, TaskType } from "api/task-api"
 import { RequestStatusType } from "app/appSlice"
 
 type Props = {
@@ -31,12 +29,6 @@ type Props = {
   entityStatus: RequestStatusType
 }
 export const Todolist = memo((props: Props) => {
-  const dispatch = useAppDispatch()
-
-  // useEffect(() => {
-  //     dispatch(getTasksTC(props.todolistId))
-  // }, [])
-
   const removeTodolistHandler = () => {
     props.removeTodolist(props.todolistId)
   }
@@ -89,18 +81,19 @@ export const Todolist = memo((props: Props) => {
       </h3>
       <AddItemForm onClick={addTaskHandler} disabled={props.entityStatus === "loading"} />
       <List>
-        {tasks.map((t) => {
-          return (
-            <Task
-              key={t.id}
-              task={t}
-              todolistId={props.todolistId}
-              removeTask={props.removeTask}
-              changeTaskStatus={props.changeTaskStatus}
-              changeTaskTitle={props.changeTaskTitle}
-            />
-          )
-        })}
+        {tasks &&
+          tasks.map((t) => {
+            return (
+              <Task
+                key={t.id}
+                task={t}
+                todolistId={props.todolistId}
+                removeTask={props.removeTask}
+                changeTaskStatus={props.changeTaskStatus}
+                changeTaskTitle={props.changeTaskTitle}
+              />
+            )
+          })}
       </List>
       <Box sx={filterButtonsContainerSx}>
         <ButtonWithMemo

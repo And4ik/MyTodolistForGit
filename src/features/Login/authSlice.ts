@@ -1,8 +1,8 @@
 import { setAppStatus, setIsInitialized } from "app/appSlice"
-import { authApi } from "../../api/auth-api"
-import { handleServerAppError, handleServerNetworkError } from "../../utils/error-utils"
+import { authApi } from "api/auth-api"
+import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
 import { LoginFormType } from "./Login"
-import { ClearTodosDataAC } from "../Todolist/todolists-reducer"
+import { ClearTodosData } from "features/Todolist/todolistsSlice"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
 
@@ -16,10 +16,13 @@ const authSlice = createSlice({
       state.isLoggedIn = action.payload.isLoggedIn
     },
   },
+  selectors: {
+    selectIsLoggedIn: (state) => state.isLoggedIn,
+  },
 })
 export const authReducer = authSlice.reducer
 export const { setIsLoggedIn } = authSlice.actions
-
+export const { selectIsLoggedIn } = authSlice.selectors
 // thunks
 export const loginTC =
   (data: LoginFormType): AppThunk =>
@@ -29,7 +32,7 @@ export const loginTC =
       .login(data)
       .then((res) => {
         if (res.data.resultCode === 0) {
-          dispatch(setIsLoggedIn({ isLoggedIn: false }))
+          dispatch(setIsLoggedIn({ isLoggedIn: true }))
           dispatch(setAppStatus({ status: "succeeded" }))
         } else {
           handleServerAppError(dispatch, res.data)
@@ -67,7 +70,7 @@ export const logOutTC = (): AppThunk => (dispatch) => {
       if (res.data.resultCode === 0) {
         dispatch(setIsLoggedIn({ isLoggedIn: false }))
         dispatch(setAppStatus({ status: "succeeded" }))
-        dispatch(ClearTodosDataAC())
+        dispatch(ClearTodosData())
       } else {
         handleServerAppError(dispatch, res.data)
       }

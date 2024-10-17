@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import * as React from "react"
 import { TaskWithRedux } from "./TaskWithRedux"
-import { ReduxStoreProviderDecorator } from "../../../../app/ReduxStoreProviderDecorator"
+import { ReduxStoreProviderDecorator } from "app/ReduxStoreProviderDecorator"
 import { useDispatch, useSelector } from "react-redux"
-import { AppRootStateType } from "../../../../app/store"
+import { AppRootStateType } from "app/store"
 
 import { v1 } from "uuid"
-import { AddTaskAC } from "../../task-reducer"
-import { TaskPriorities, TaskStatuses, TaskType } from "../../../../api/task-api"
+
+import { TaskPriorities, TaskStatuses, TaskType } from "api/task-api"
+import { AddTask } from "features/Todolist/tasksSlice"
 
 const meta: Meta<typeof TaskWithRedux> = {
   title: "TODOLISTS/TaskWithRedux",
@@ -38,17 +39,19 @@ const Task: React.FC = () => {
       deadline: "",
     }
     dispatch(
-      AddTaskAC({
-        todoListId: "fds",
-        title: "new titile",
-        status: TaskStatuses.New,
-        addedDate: "",
-        deadline: "",
-        id: "fdsfsd",
-        order: 0,
-        priority: 0,
-        description: "",
-        startDate: "",
+      AddTask({
+        task: {
+          todoListId: "fds",
+          title: "new titile",
+          status: TaskStatuses.New,
+          addedDate: "",
+          deadline: "",
+          id: "fdsfsd",
+          order: 0,
+          priority: 0,
+          description: "",
+          startDate: "",
+        },
       }),
     )
   }

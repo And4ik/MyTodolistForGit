@@ -4,10 +4,10 @@ import { Provider } from "react-redux"
 import { combineReducers, legacy_createStore } from "redux"
 
 import { v1 } from "uuid"
-import { tasksReducer } from "../features/Todolist/task-reducer"
-import { todolistsReducer } from "../features/Todolist/todolists-reducer"
+import { tasksReducer } from "features/Todolist/tasksSlice"
+import { todolistsReducer } from "features/Todolist/todolistsSlice"
 
-import { TaskPriorities, TaskStatuses } from "../api/task-api"
+import { TaskPriorities, TaskStatuses } from "api/task-api"
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,

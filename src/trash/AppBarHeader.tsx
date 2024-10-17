@@ -6,14 +6,15 @@ import MenuIcon from "@mui/icons-material/Menu"
 import Typography from "@mui/material/Typography"
 import { MenuButton } from "./MenuButton"
 import Switch from "@mui/material/Switch"
-import { useAppDispatch, useAppSelector } from "../app/store"
-import { logOutTC } from "features/Login/authSlice"
+import { useAppDispatch } from "app/store"
+import { logOutTC, selectIsLoggedIn } from "features/Login/authSlice"
+import { useSelector } from "react-redux"
 
 type AppBarHeaderType = {
   changeModeHandler: () => void
 }
 export const AppBarHeader = (props: AppBarHeaderType) => {
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
   const dispatch = useAppDispatch()
 
   const logOutHandler = () => {
