@@ -1,5 +1,5 @@
 import { AddTodolist, TodolistDomainType, todolistsReducer } from "features/Todolist/todolistsSlice"
-import { tasksReducer } from "features/Todolist/tasksSlice"
+import { tasksReducer } from "features/Todolist/Todolist/Task/tasksSlice"
 import { v1 } from "uuid"
 import { TasksStateType } from "app/AppWithRedux"
 

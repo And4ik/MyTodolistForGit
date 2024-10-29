@@ -5,9 +5,10 @@ import { fn } from "@storybook/test"
 import * as React from "react"
 import { useState } from "react"
 import { action } from "@storybook/addon-actions"
-import { TaskPriorities, TaskStatuses } from "../../../../api/task-api"
+import { TaskPriorities, TaskStatuses } from "features/Todolist/lib/enums/enums"
 
-const meta: Meta<typeof Task> = {
+let meta: Meta<typeof Task>
+meta = {
   title: "TODOLISTS/Task",
   component: Task,
   tags: ["autodocs"],

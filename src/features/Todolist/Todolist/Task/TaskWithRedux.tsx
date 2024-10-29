@@ -1,29 +1,31 @@
 import React from "react"
 import { getListItemSx } from "../Todolist.styles"
-import { EditableSpan } from "Components/EditableSpan/EditableSpan"
+import { EditableSpan } from "common/components/EditableSpan/EditableSpan"
 import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ListItem from "@mui/material/ListItem"
 import { ChangeEvent, memo } from "react"
-import { useDispatch } from "react-redux"
 
-import { TaskStatuses, TaskType } from "api/task-api"
-import { ChangeTaskStatus, ChangeTaskTitle, RemoveTask } from "features/Todolist/tasksSlice"
+import { TaskType } from "features/Todolist/Todolist/Task/api/task-api"
+import { removeTask, updateTaskStatus, updateTaskTitle } from "features/Todolist/Todolist/Task/tasksSlice"
+import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { TaskStatuses } from "features/Todolist/lib/enums/enums"
 
 type TaskWithReduxPropsType = {
   task: TaskType
   todolistId: string
 }
+
 export const TaskWithRedux = memo(({ task, todolistId }: TaskWithReduxPropsType) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const removeTaskHandler = () => {
-    dispatch(RemoveTask({ taskId: task.id, todolistId }))
+    dispatch(removeTask({ taskId: task.id, todolistId }))
   }
   const onTaskStatusChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const newStatusValue = e.currentTarget.checked
     dispatch(
-      ChangeTaskStatus({
+      updateTaskStatus({
         taskId: task.id,
         status: newStatusValue ? TaskStatuses.Completed : TaskStatuses.New,
         todolistId,
@@ -31,7 +33,7 @@ export const TaskWithRedux = memo(({ task, todolistId }: TaskWithReduxPropsType)
     )
   }
   const onTitleChangeHandler = (newTitle: string) => {
-    dispatch(ChangeTaskTitle({ taskId: task.id, title: newTitle, todolistId }))
+    dispatch(updateTaskTitle({ taskId: task.id, title: newTitle, todolistId }))
   }
 
   return (

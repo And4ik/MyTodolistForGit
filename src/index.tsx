@@ -6,9 +6,9 @@ import AppWithRedux from "./app/AppWithRedux"
 import { store } from "app/store"
 import { Provider } from "react-redux"
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
-import { Login } from "features/Login/Login"
+import { Login } from "features/auth/ui/Login"
 
-import { ErrorPage } from "Components/ErrorPage/ErrorPage"
+import { ErrorPage } from "common/components/ErrorPage/ErrorPage"
 import { TodolistsList } from "features/Todolist/TodolistList"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)

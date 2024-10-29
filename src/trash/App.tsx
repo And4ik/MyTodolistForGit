@@ -2,14 +2,15 @@ import React, { useState } from "react"
 import "../app/App.css"
 import { Todolist } from "features/Todolist/Todolist/Todolist"
 import { v1 } from "uuid"
-import { AddItemForm } from "Components/AdditemForm/AddItemForm"
+import { AddItemForm } from "common/components/AdditemForm/AddItemForm"
 import { Container, createTheme, CssBaseline, Grid, ThemeProvider } from "@mui/material"
 import Paper from "@mui/material/Paper"
 import Box from "@mui/material/Box"
-import { AppBarHeader } from "./AppBarHeader"
-import { TaskPriorities, TaskStatuses } from "api/task-api"
+
 import { FilterValuesType, TodolistDomainType } from "features/Todolist/todolistsSlice"
 import { TasksStateType } from "app/AppWithRedux"
+import { TaskPriorities, TaskStatuses } from "features/Todolist/lib/enums/enums"
+import { AppBarHeader } from "common/components/AppBarHeader"
 
 function App() {
   let todolistID1 = v1()

@@ -4,17 +4,17 @@ import { Provider } from "react-redux"
 import { combineReducers, legacy_createStore } from "redux"
 
 import { v1 } from "uuid"
-import { tasksReducer } from "features/Todolist/tasksSlice"
+import { tasksReducer } from "features/Todolist/Todolist/Task/tasksSlice"
 import { todolistsReducer } from "features/Todolist/todolistsSlice"
-
-import { TaskPriorities, TaskStatuses } from "api/task-api"
+import { TaskPriorities, TaskStatuses } from "features/Todolist/lib/enums/enums"
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
   todolists: todolistsReducer,
 })
 
-const initialGlobalState: {} = {
+let initialGlobalState: {}
+initialGlobalState = {
   todolists: [
     { id: "todolistId1", title: "What to learn", filter: "all", addedDate: "", order: 0 },
     { id: "todolistId2", title: "What to buy", filter: "all", addedDate: "", order: 0 },

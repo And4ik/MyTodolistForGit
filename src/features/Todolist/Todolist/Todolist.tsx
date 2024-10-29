@@ -1,18 +1,19 @@
 import * as React from "react"
 import { memo, useCallback } from "react"
 
-import { AddItemForm } from "Components/AdditemForm/AddItemForm"
-import { EditableSpan } from "Components/EditableSpan/EditableSpan"
+import { AddItemForm } from "common/components/AdditemForm/AddItemForm"
+import { EditableSpan } from "common/components/EditableSpan/EditableSpan"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import List from "@mui/material/List"
 import Box from "@mui/material/Box"
 import { filterButtonsContainerSx } from "./Todolist.styles"
-import { ButtonWithMemo } from "Components/Button"
+import { ButtonWithMemo } from "common/components/Button"
 import { Task } from "./Task/Task"
 import { FilterValuesType } from "features/Todolist/todolistsSlice"
-import { TaskStatuses, TaskType } from "api/task-api"
+import { TaskType } from "features/Todolist/Todolist/Task/api/task-api"
 import { RequestStatusType } from "app/appSlice"
+import { TaskStatuses } from "features/Todolist/lib/enums/enums"
 
 type Props = {
   todolistId: string
