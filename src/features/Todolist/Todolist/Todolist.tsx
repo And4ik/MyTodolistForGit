@@ -1,5 +1,5 @@
 import * as React from "react"
-import { memo, useCallback } from "react"
+import { memo, useCallback, useEffect } from "react"
 
 import { AddItemForm } from "common/components/AdditemForm/AddItemForm"
 import { EditableSpan } from "common/components/EditableSpan/EditableSpan"
@@ -14,6 +14,8 @@ import { FilterValuesType } from "features/Todolist/todolistsSlice"
 import { TaskType } from "features/Todolist/Todolist/Task/api/task-api"
 import { RequestStatusType } from "app/appSlice"
 import { TaskStatuses } from "features/Todolist/lib/enums/enums"
+import { useAppDispatch } from "common/hooks/useAppDispatch"
+import { fetchTasks } from "features/Todolist/Todolist/Task/tasksSlice"
 
 type Props = {
   todolistId: string
@@ -30,6 +32,11 @@ type Props = {
   entityStatus: RequestStatusType
 }
 export const Todolist = memo((props: Props) => {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchTasks(props.todolistId))
+  }, [])
+
   const removeTodolistHandler = () => {
     props.removeTodolist(props.todolistId)
   }

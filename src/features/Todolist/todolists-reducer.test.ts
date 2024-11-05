@@ -1,13 +1,14 @@
 import { v1 } from "uuid"
 
 import {
-  AddTodolist,
+  addTodolist,
   ChangeTodolistFilter,
   changeTodolistTitle,
-  RemoveTodolist,
+  removeTodolist,
   TodolistDomainType,
   todolistsReducer,
 } from "features/Todolist/todolistsSlice"
+import { ActionTest } from "common/type/types"
 
 let todolistID1: string
 let todolistID2: string
@@ -23,29 +24,30 @@ beforeEach(() => {
 })
 
 test("correct todolist should be removed", () => {
-  // const action = {
-  //     type: "REMOVE-TODOLIST",
-  //     payload:{
-  //         id:todolistID1
-  //     }
-  // } as const
-  // const endState = todolistsReducer(startState, action)
-  const endState = todolistsReducer(startState, RemoveTodolist({ id: todolistID1 }))
+  const action: ActionTest<typeof removeTodolist.fulfilled> = {
+    type: removeTodolist.fulfilled.type,
+    payload: {
+      id: todolistID1,
+    },
+  }
+
+  const endState = todolistsReducer(startState, action)
   expect(endState.length).toBe(1)
   expect(endState[0].id).toBe(todolistID2)
 })
 test("correct todolist should be added", () => {
-  const endState = todolistsReducer(
-    startState,
-    AddTodolist({
+  const action: ActionTest<typeof addTodolist.fulfilled> = {
+    type: addTodolist.fulfilled.type,
+    payload: {
       todolist: {
         id: v1(),
         title: "New Todolist",
         addedDate: "",
         order: 0,
       },
-    }),
-  )
+    },
+  }
+  const endState = todolistsReducer(startState, action)
   expect(endState.length).toBe(3)
   // expect(endState[2].title).toBe(action.payload.title)
   expect(endState[2].title).toBe("What to buy")
@@ -58,8 +60,14 @@ test("correct todolist should change its name", () => {
   //         title: 'New Todolist',
   //     },
   // } as const
-  // const endState = todolistsReducer(startState, action)
-  const endState = todolistsReducer(startState, changeTodolistTitle({ id: todolistID2, title: "New Todolist" }))
+  const action: ActionTest<typeof changeTodolistTitle.fulfilled> = {
+    type: changeTodolistTitle.fulfilled.type,
+    payload: {
+      id: todolistID2,
+      title: "New Todolist",
+    },
+  }
+  const endState = todolistsReducer(startState, action)
 
   expect(endState[0].title).toBe("What to learn")
   expect(endState[1].title).toBe("New Todolist")

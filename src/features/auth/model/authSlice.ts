@@ -2,7 +2,7 @@ import { setAppStatus, setIsInitialized } from "app/appSlice"
 import { authApi } from "features/auth/api/authApi"
 import { handleServerNetworkError } from "common/utils/handleServerNetworkError"
 
-import { ClearTodosData } from "features/Todolist/todolistsSlice"
+import { clearTasksAndTodolists } from "features/Todolist/todolistsSlice"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppThunk } from "app/store"
 import { ResultCode } from "common/enums/enums"
@@ -73,7 +73,7 @@ export const logOutTC = (): AppThunk => (dispatch) => {
       if (res.data.resultCode === ResultCode.success) {
         dispatch(setIsLoggedIn({ isLoggedIn: false }))
         dispatch(setAppStatus({ status: "succeeded" }))
-        dispatch(ClearTodosData())
+        dispatch(clearTasksAndTodolists())
       } else {
         handleServerAppError(dispatch, res.data)
       }

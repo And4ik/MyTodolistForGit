@@ -1,13 +1,12 @@
 import { instance } from "common/instance/instance"
 import { BaseResponse } from "common/type/types"
 import { TaskPriorities, TaskStatuses } from "features/Todolist/lib/enums/enums"
-import { removeTask } from "features/Todolist/Todolist/Task/tasksSlice"
 
 export const taskApi = {
-  getTasks(todolistId: string) {
-    return instance.get<getTasksResponse>(`/todo-lists/${todolistId}/tasks`)
+  fetchTasks(todolistId: string) {
+    return instance.get<fetchTasksResponse>(`/todo-lists/${todolistId}/tasks`)
   },
-  createTask(arg: AddTaskArgs) {
+  addTask(arg: AddTaskArgs) {
     const { todolistId, title } = arg
     return instance.post<BaseResponse<{ item: TaskType }>>(`/todo-lists/${todolistId}/tasks`, { title })
   },
@@ -45,7 +44,7 @@ export type TaskType = {
   order: number
   addedDate: string
 }
-type getTasksResponse = {
+type fetchTasksResponse = {
   items: TaskType[]
   totalCount: number
   error: string | null

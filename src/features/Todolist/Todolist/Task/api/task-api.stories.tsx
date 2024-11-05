@@ -5,24 +5,24 @@ import { TaskStatuses } from "features/Todolist/lib/enums/enums"
 export default {
   title: "API for Task",
 }
-export const getTasks = () => {
+export const fetchTasks = () => {
   const [state, setState] = useState<any>(null)
 
   useEffect(() => {
     const todolistId = "b50243d0-7316-42de-a213-e271d79b2de3"
-    taskApi.getTasks(todolistId).then((res) => {
+    taskApi.fetchTasks(todolistId).then((res) => {
       setState(res.data)
     })
   }, [])
   return <div>{JSON.stringify(state)}</div>
 }
-export const CreateTask = () => {
+export const addTask = () => {
   const [state, setState] = useState<any>(null)
 
   useEffect(() => {
     const title = "new TASKaaaa"
     const todolistId = "b50243d0-7316-42de-a213-e271d79b2de3"
-    taskApi.createTask({ todolistId, title }).then((res) => {
+    taskApi.addTask({ todolistId, title }).then((res) => {
       setState(res.data)
     })
   }, [])

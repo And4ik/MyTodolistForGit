@@ -1,5 +1,5 @@
 import {
-  createTask,
+  addTask,
   removeTask,
   tasksReducer,
   updateTaskStatus,
@@ -7,7 +7,7 @@ import {
 } from "features/Todolist/Todolist/Task/tasksSlice"
 
 import { v1 } from "uuid"
-import { AddTodolist, RemoveTodolist } from "features/Todolist/todolistsSlice"
+import { addTodolist, removeTodolist } from "features/Todolist/todolistsSlice"
 import { TasksStateType } from "app/AppWithRedux"
 import { ActionTest } from "common/type/types"
 import { TaskPriorities, TaskStatuses } from "features/Todolist/lib/enums/enums"
@@ -172,8 +172,8 @@ test("correct task should be deleted from correct array", () => {
 })
 
 test("correct task should be added to correct array", () => {
-  const action: ActionTest<typeof createTask.fulfilled> = {
-    type: createTask.fulfilled.type,
+  const action: ActionTest<typeof addTask.fulfilled> = {
+    type: addTask.fulfilled.type,
     payload: {
       task: {
         todoListId: "todolistId2",
@@ -224,14 +224,18 @@ test("title be changed", () => {
   expect(endState["todolistId2"][2].title).toBe("coffee")
 })
 test("new array should be added when new todolist is added", () => {
-  const action = AddTodolist({
-    todolist: {
-      id: v1(),
-      title: "newTitle",
-      addedDate: "",
-      order: 0,
+  const action: ActionTest<typeof addTodolist.fulfilled> = {
+    type: addTodolist.fulfilled.type,
+    payload: {
+      todolist: {
+        id: v1(),
+        title: "newTitle",
+        addedDate: "",
+        order: 0,
+      },
     },
-  })
+  }
+
   const endState = tasksReducer(startState, action)
   const keys = Object.keys(endState) // ['todolistId1', 'todolistId2', `newKey`]
   const newKey = keys.find((k) => k != "todolistId1" && k != "todolistId2")
@@ -242,7 +246,13 @@ test("new array should be added when new todolist is added", () => {
   expect(endState[newKey]).toEqual([])
 })
 test("property with todolistId should be deleted", () => {
-  const action = RemoveTodolist({ id: "todolistId2" })
+  const action: ActionTest<typeof removeTodolist.fulfilled> = {
+    type: removeTodolist.fulfilled.type,
+    payload: {
+      id: "todolistId2",
+    },
+  }
+
   const endState = tasksReducer(startState, action)
   const keys = Object.keys(endState)
   expect(keys.length).toBe(1)

@@ -3,15 +3,15 @@ import { useSelector } from "react-redux"
 import { useAppDispatch } from "common/hooks/useAppDispatch"
 import {
   ChangeTodolistFilter,
-  changeTodolistTitleTC,
-  createTodolistTC,
-  deleteTodolistTC,
+  changeTodolistTitle,
+  removeTodolist,
+  fetchTodolists,
   FilterValuesType,
-  getTodolistsTC,
   selectTodolists,
+  addTodolist,
 } from "features/Todolist/todolistsSlice"
 import {
-  createTask,
+  addTask,
   removeTask,
   selectTasks,
   updateTaskStatus,
@@ -45,9 +45,9 @@ export const TodolistsList: React.FC = () => {
     [dispatch],
   )
 
-  const addTask = useCallback(
+  const addTaskCallback = useCallback(
     (todolistId: string, title: string) => {
-      dispatch(createTask({ todolistId, title }))
+      dispatch(addTask({ todolistId, title }))
     },
     [dispatch],
   )
@@ -59,16 +59,16 @@ export const TodolistsList: React.FC = () => {
     [dispatch],
   )
 
-  const removeTodolist = useCallback(
+  const removeTodolistCallback = useCallback(
     (todolistId: string) => {
-      dispatch(deleteTodolistTC(todolistId))
+      dispatch(removeTodolist(todolistId))
     },
     [dispatch],
   )
 
-  const addTodolist = useCallback(
+  const addTodolistCallback = useCallback(
     (newTitle: string) => {
-      dispatch(createTodolistTC(newTitle))
+      dispatch(addTodolist(newTitle))
     },
     [dispatch],
   )
@@ -80,15 +80,15 @@ export const TodolistsList: React.FC = () => {
     [dispatch],
   )
 
-  const changeTodolistTitle = useCallback(
-    (todolistId: string, newTitle: string) => {
-      dispatch(changeTodolistTitleTC(todolistId, newTitle))
+  const changeTodolistTitleCallback = useCallback(
+    (id: string, title: string) => {
+      dispatch(changeTodolistTitle({ id, title }))
     },
     [dispatch],
   )
 
   useEffect(() => {
-    dispatch(getTodolistsTC)
+    dispatch(fetchTodolists())
   }, [dispatch])
 
   if (!isLoggedIn) {
@@ -98,7 +98,7 @@ export const TodolistsList: React.FC = () => {
   return (
     <>
       <Grid container sx={{ padding: "15px" }}>
-        <AddItemForm onClick={addTodolist} />
+        <AddItemForm onClick={addTodolistCallback} />
       </Grid>
       <Grid container spacing={4}>
         {todolists.map((tl) => {
@@ -112,10 +112,10 @@ export const TodolistsList: React.FC = () => {
                   title={tl.title}
                   changeFilter={changeFilter}
                   removeTask={removeTaskCallback}
-                  addTask={addTask}
+                  addTask={addTaskCallback}
                   changeTaskStatus={changeTaskStatus}
-                  removeTodolist={removeTodolist}
-                  changeTodolistTitle={changeTodolistTitle}
+                  removeTodolist={removeTodolistCallback}
+                  changeTodolistTitle={changeTodolistTitleCallback}
                   filter={tl.filter}
                   changeTaskTitle={changeTaskTitle}
                   entityStatus={tl.entityStatus}
